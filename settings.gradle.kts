@@ -1,4 +1,4 @@
-rootProject.name = "NavigationSample"
+rootProject.name = "KMPTaskApp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
