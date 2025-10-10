@@ -27,7 +27,7 @@ fun App() {
                 arguments = listOf(navArgument("taskId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val taskId = backStackEntry.arguments?.getInt("taskId") ?: return@composable
-                TaskDetailScreen(taskId = taskId)
+                TaskDetailScreen(taskId = taskId, onBack = { navController.popBackStack() })
             }
         }
     }
