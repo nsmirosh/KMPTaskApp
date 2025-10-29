@@ -123,7 +123,9 @@ fun TaskDetailScreen(taskId: Int, onBack: () -> Unit = {}) {
             TopAppBar(
                 title = { Text(task?.title ?: "Task Details") },
                 navigationIcon = {
-                    TextButton(onClick = onBack) { Text("Back") }
+                    androidx.compose.material3.IconButton(onClick = onBack) {
+                        Text("\u2190")
+                    }
                 }
             )
         }
