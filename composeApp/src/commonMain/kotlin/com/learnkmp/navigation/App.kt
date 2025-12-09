@@ -8,31 +8,33 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.learnkmp.navigation.todo.TaskDetailScreen
 import com.learnkmp.navigation.todo.TaskListScreen
+import kotlinx.serialization.Serializable
 
-//Make serializable in case you want to preserve during state change
+@Serializable
 data object TaskListKey: NavKey
 
-data class TaskDetailsKey(val taskId: Int): NavKey
+@Serializable
+data class TaskDetailKey(val taskId: Int): NavKey
 
 @Composable
 fun App() {
 
-    val backStack = remember { mutableStateListOf<NavKey>(TaskListKey) }
+
+    val backStack = remember { mutableStateListOf<Any>(TaskListKey)}
 
     NavDisplay(
-        backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
+       backStack = backStack,
         entryProvider = entryProvider {
-            entry<TaskDetailsKey> { key ->
+            entry<TaskDetailKey> { key ->
                 TaskDetailScreen(key.taskId) {
                     backStack.removeLastOrNull()
                 }
             }
-            entry<TaskListKey> {
-                TaskListScreen {
-                    backStack.add(TaskDetailsKey(it))
-                }
-            }
+           entry<TaskListKey> {
+               TaskListScreen { taskId ->
+                   backStack.add(TaskDetailKey(taskId))
+               }
+           }
         }
     )
 }
