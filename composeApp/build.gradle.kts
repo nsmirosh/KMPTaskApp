@@ -39,6 +39,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.androidx.core.icons)
+            implementation(libs.androidx.extended.icons)
             implementation(libs.androidx.nav3.ui)
         }
         commonTest.dependencies {
