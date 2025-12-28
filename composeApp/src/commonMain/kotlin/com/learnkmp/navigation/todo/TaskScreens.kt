@@ -25,10 +25,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.learnkmp.navigation.ui.TaskViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskListScreen(onTaskClick: (Int) -> Unit) {
+fun TaskListScreen(
+    viewModel: TaskViewModel = koinViewModel(),
+    onTaskClick: (Task) -> Unit
+
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -47,8 +54,8 @@ fun TaskListScreen(onTaskClick: (Int) -> Unit) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(TaskRepository.tasks) { task ->
-                TaskListItem(task = task, onClick = { onTaskClick(task.id) })
+            items(viewModel.tasks) { task ->
+                TaskListItem(task = task, onClick = { onTaskClick(task) })
             }
         }
     }

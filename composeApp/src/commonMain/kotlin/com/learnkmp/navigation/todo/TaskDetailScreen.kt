@@ -27,16 +27,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.learnkmp.navigation.backBtnImageVector
+import com.learnkmp.navigation.ui.backBtnImageVector
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskDetailScreen(taskId: Int, onBack: () -> Unit = {}) {
-    val task = TaskRepository.getTaskById(taskId)
+fun TaskDetailScreen(task: Task, onBack: () -> Unit = {}) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(task?.title ?: "Task Details") },
+                title = { Text(task.title) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(backBtnImageVector(), contentDescription = "Back")
@@ -45,12 +44,6 @@ fun TaskDetailScreen(taskId: Int, onBack: () -> Unit = {}) {
             )
         }
     ) { padding ->
-        if (task == null) {
-            Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) {
-                Text("Task not found")
-            }
-            return@Scaffold
-        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -59,7 +52,10 @@ fun TaskDetailScreen(taskId: Int, onBack: () -> Unit = {}) {
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
                 PriorityChip(priority = task.priority)
                 Box(
                     modifier = Modifier
@@ -67,13 +63,27 @@ fun TaskDetailScreen(taskId: Int, onBack: () -> Unit = {}) {
                         .background(if (task.completed) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant)
                         .padding(horizontal = 10.dp, vertical = 6.dp)
                 ) {
-                    Text(if (task.completed) "Completed" else "Not completed", style = MaterialTheme.typography.labelLarge)
+                    Text(
+                        if (task.completed) "Completed" else "Not completed",
+                        style = MaterialTheme.typography.labelLarge
+                    )
                 }
             }
             Divider()
-            Surface(tonalElevation = 1.dp, shape = RoundedCornerShape(12.dp), color = MaterialTheme.colorScheme.surfaceVariant) {
-                Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(text = "Description", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Surface(
+                tonalElevation = 1.dp,
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            ) {
+                Column(
+                    Modifier.fillMaxWidth().padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = "Description",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
                     Text(text = task.description, style = MaterialTheme.typography.bodyMedium)
                 }
             }

@@ -40,6 +40,8 @@ kotlin {
             implementation(libs.androidx.core.icons)
             implementation(libs.androidx.extended.icons)
             implementation(libs.androidx.nav3.ui)
+            implementation(libs.koin.core)
+            implementation(libs.koin.viewmodel)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
