@@ -27,12 +27,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.learnkmp.navigation.ui.TaskViewModel
-import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskListScreen(
-    viewModel: TaskViewModel = koinViewModel(),
+    viewModel: TaskViewModel = viewModel(),
     onTaskClick: (Task) -> Unit
 
 ) {
