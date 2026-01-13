@@ -1,6 +1,7 @@
 package com.learnkmp.navigation.todo
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -25,9 +27,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.learnkmp.navigation.ui.backBtnImageVector
+import kmptaskapp.composeapp.generated.resources.Res
+import kmptaskapp.composeapp.generated.resources.info
+import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,14 +86,35 @@ fun TaskDetailScreen(task: Task, onBack: () -> Unit = {}) {
                     Modifier.fillMaxWidth().padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = "Description",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                    Row {
+                        Text(
+                            text = "Description",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Image(
+                            painter = painterResource(Res.drawable.info),
+                            contentDescription = "Sample icon",
+                            modifier = Modifier.padding(start = 8.dp).size(24.dp),
+                        )
+                    }
                     Text(text = task.description, style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun TaskDetailPreview() {
+    TaskDetailScreen(
+        Task(
+            id = 1,
+            title = "Task 1",
+            description = "Description of task 1",
+            priority = Priority.HIGH,
+            completed = false
+        )
+    )
 }

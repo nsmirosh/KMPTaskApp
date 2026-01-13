@@ -1,0 +1,4 @@
+<resources>
+    <string name="status_done">Done</string>
+    <string name="status_pending">Pending</string>
+</resources>

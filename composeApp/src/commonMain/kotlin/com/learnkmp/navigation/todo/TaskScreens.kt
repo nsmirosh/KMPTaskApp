@@ -27,6 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.learnkmp.navigation.ui.TaskViewModel
+import kmptaskapp.composeapp.generated.resources.Res
+import kmptaskapp.composeapp.generated.resources.status_done
+import kmptaskapp.composeapp.generated.resources.status_pending
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,7 +90,7 @@ private fun TaskListItem(task: Task, onClick: () -> Unit) {
             }
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = if (task.completed) "Done" else "Pending",
+                    text = stringResource(if (task.completed) Res.string.status_done else Res.string.status_pending),
                     style = MaterialTheme.typography.labelMedium,
                     color = if (task.completed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                 )
