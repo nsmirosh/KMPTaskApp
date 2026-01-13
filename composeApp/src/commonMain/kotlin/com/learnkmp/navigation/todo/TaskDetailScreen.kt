@@ -32,9 +32,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.learnkmp.navigation.ui.backBtnImageVector
+import kmptaskapp.composeapp.generated.resources.Description
 import kmptaskapp.composeapp.generated.resources.Res
 import kmptaskapp.composeapp.generated.resources.info
+import kmptaskapp.composeapp.generated.resources.status_completed
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,7 +74,7 @@ fun TaskDetailScreen(task: Task, onBack: () -> Unit = {}) {
                         .padding(horizontal = 10.dp, vertical = 6.dp)
                 ) {
                     Text(
-                        if (task.completed) "Completed" else "Not completed",
+                        stringResource(if (task.completed) Res.string.status_completed else Res.string.status_completed),
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
@@ -88,7 +91,7 @@ fun TaskDetailScreen(task: Task, onBack: () -> Unit = {}) {
                 ) {
                     Row {
                         Text(
-                            text = "Description",
+                            text = stringResource(Res.string.Description),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.SemiBold
                         )
